@@ -1,0 +1,46 @@
+﻿@model Web_4.Models.MonAn
+
+@{
+    ViewBag.Title = "Món ăn có daonh thu cao nhất";
+}
+
+<h2>@(ViewBag.Title)</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenMon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiMon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DonGia)
+        </th>
+        <th>Tổng doanh thu</th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => Model.TenMon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.LoaiMon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DonGia)
+        </td>
+        <td>
+            @((ViewBag.TongDoanhThu as decimal? ?? 0).ToString("n0") + " VND")
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=Model.MaMon }) |
+            @Html.ActionLink("Details", "Details", new { id=Model.MaMon }) |
+            @Html.ActionLink("Delete", "Delete", new { id=Model.MaMon })
+        </td>
+    </tr>
+
+</table>

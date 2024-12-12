@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLQuanAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="HoaDonDatMon">
+    <Key>
+      <PropertyRef Name="MaHD" />
+    </Key>
+    <Property Name="MaHD" Type="int" Nullable="false" />
+    <Property Name="MaMon" Type="int" />
+    <Property Name="MaKH" Type="int" />
+    <Property Name="NgayDat" Type="datetime" />
+    <Property Name="SoLuong" Type="int" />
+  </EntityType>
+  <EntityType Name="KhachHang">
+    <Key>
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaKH" Type="int" Nullable="false" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="DienThoai" Type="nvarchar" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MonAn">
+    <Key>
+      <PropertyRef Name="MaMon" />
+    </Key>
+    <Property Name="MaMon" Type="int" Nullable="false" />
+    <Property Name="TenMon" Type="nvarchar" MaxLength="50" />
+    <Property Name="LoaiMon" Type="nvarchar" MaxLength="30" />
+    <Property Name="DonGia" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <Association Name="FK_HoaDonDatMon_KhachHang">
+    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HoaDonDatMon" Type="Self.HoaDonDatMon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="MaKH" />
+      </Principal>
+      <Dependent Role="HoaDonDatMon">
+        <PropertyRef Name="MaKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HoaDonDatMon_MonAn">
+    <End Role="MonAn" Type="Self.MonAn" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HoaDonDatMon" Type="Self.HoaDonDatMon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonAn">
+        <PropertyRef Name="MaMon" />
+      </Principal>
+      <Dependent Role="HoaDonDatMon">
+        <PropertyRef Name="MaMon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLQuanAnModelStoreContainer">
+    <EntitySet Name="HoaDonDatMon" EntityType="Self.HoaDonDatMon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MonAn" EntityType="Self.MonAn" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_HoaDonDatMon_KhachHang" Association="Self.FK_HoaDonDatMon_KhachHang">
+      <End Role="KhachHang" EntitySet="KhachHang" />
+      <End Role="HoaDonDatMon" EntitySet="HoaDonDatMon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HoaDonDatMon_MonAn" Association="Self.FK_HoaDonDatMon_MonAn">
+      <End Role="MonAn" EntitySet="MonAn" />
+      <End Role="HoaDonDatMon" EntitySet="HoaDonDatMon" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
